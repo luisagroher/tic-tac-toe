@@ -106,4 +106,41 @@ def make_move(game, position):
 
 # minimax function
 
+
+def minimax(board, depth, player, is_maximizing_player, opponent):
+    if is_draw(board):
+        return 0, None
+    if win_combinations(board):
+        return 1, win_combinations(board)
+    if is_maximizing_player:
+        best_score = -np.inf
+        for move in available_positions(board):
+            r, c = move
+            board[r, c] = player
+            score, _ = minimax(board, depth + 1, opponent, False, player)
+            board[r, c] = '__'
+            best_score = max(score, best_score)
+        return best_score, None
+    else:
+        best_score = np.inf
+        for move in available_positions(board):
+            r, c = move
+            board[r, c] = opponent
+            score, _ = minimax(board, depth + 1, player, True, opponent)
+            board[r, c] = '__'
+            best_score = min(score, best_score)
+        return best_score, None
+
 # find best move
+
+def get_best_move(board, player, opponent):
+    best_move, best_score = None, -np.inf
+    for move in available_positions(board):
+        r, c = move
+        board[r, c] = player
+        score, _ = minimax(board, 0, opponent, False, player)
+        board[r, c] = '__'
+        if score > best_score:
+            best_score = score
+            best_move = move
+    return best_move
