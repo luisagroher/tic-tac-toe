@@ -7,8 +7,10 @@ import pandas as pd
 def create_board():
     return np.array(['__'] * 9).reshape(3, 3)
 
+
 def show_board(board):
     return pd.DataFrame(board)
+
 
 def create_game():
     board = create_board()
@@ -26,11 +28,13 @@ def create_game():
 
 # get possible moves / actions
 
+
 def available_positions(board):
     x, y = np.where(board == '__')
     return [(x, y) for x, y in zip(x, y)]
 
 # make a move
+
 
 def make_move(game, position):
     board = game['board']
@@ -44,4 +48,3 @@ def make_move(game, position):
 # minimax function
 
 # find best move
-
