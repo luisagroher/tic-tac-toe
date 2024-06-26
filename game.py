@@ -5,14 +5,27 @@ import pandas as pd
 # board representation
 
 def create_board():
+    """
+    Create a 3x3 board
+    :return:
+    """
     return np.array(['__'] * 9).reshape(3, 3)
 
 
 def show_board(board):
+    """
+    Show the board
+    :param board:
+    :return:
+    """
     return pd.DataFrame(board)
 
 
 def create_game():
+    """
+    Create a game
+    :return:
+    """
     board = create_board()
     positions = available_positions(board)
     return {
@@ -26,6 +39,11 @@ def create_game():
 
 
 def win_combinations(board):
+    """
+    Get the win combinations and check if the player has won
+    :param board:
+    :return:
+    """
     win_combos = [
         ('row 1', board[0, :]),
         ('row 2', board[1, :]),
@@ -48,12 +66,23 @@ def win_combinations(board):
 
 
 def is_draw(board):
+
+    """
+    Check if the game is a draw
+    :param board:
+    :return:
+    """
     return not np.any(board == '__')
 
 # get possible moves / actions
 
 
 def available_positions(board):
+    """
+    Get the available positions on the board
+    :param board:
+    :return:
+    """
     x, y = np.where(board == '__')
     return [(x, y) for x, y in zip(x, y)]
 
@@ -61,6 +90,12 @@ def available_positions(board):
 
 
 def make_move(game, position):
+    """
+    Make a move on the board
+    :param game:
+    :param position:
+    :return:
+    """
     board = game['board']
     current_player = game['current_player']
     board[position] = current_player
