@@ -24,7 +24,31 @@ def create_game():
 
 # check for win
 
+
+def win_combinations(board):
+    win_combos = [
+        ('row 1', board[0, :]),
+        ('row 2', board[1, :]),
+        ('row 3', board[2, :]),
+        ('col 1', board[:, 0]),
+        ('col 2', board[:, 1]),
+        ('col 3', board[:, 2]),
+        ('diagonal 1', np.diag(board)),
+        ('diagonal 2', np.diag(np.fliplr(board))),
+    ]
+    for sequence, line in win_combos:
+        if np.all(line == 'X'):
+            return sequence, 'X'
+        elif np.all(line == 'O'):
+            return sequence, 'O'
+    return None
+
+
 # check for draw
+
+
+def is_draw(board):
+    return not np.any(board == '__')
 
 # get possible moves / actions
 
